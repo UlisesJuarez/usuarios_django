@@ -1,17 +1,29 @@
 from django.db import models
 
-
-class User(models.Model):
-    """Model definition for User."""
+from django.contrib.auth.models  import AbstractBaseUser, PermissionsMixin
 
 
-    class Meta:
-        """Meta definition for User."""
+class User(AbstractBaseUser,PermissionsMixin):
 
-        verbose_name = 'User'
-        verbose_name_plural = 'Users'
+    GENDER_CHOICES=(
+        ('M','Masculino'),
+        ('F','Femenino'),
+        ('O','Otros'),
+    )
 
-    def __str__(self):
-        """Unicode representation of User."""
-        pass
+    username = models.CharField(max_length=10,unique=True)
+    email = models.EmailField()
+    nombres = models.CharField(max_length=30)
+    apellidos = models.CharField(max_length=30)
+    genero = models.CharField(max_length=1,choices=GENDER_CHOICES,blank=True)
 
+    USERNAME_FIELD='username'
+
+    def get_short_name(self):
+        return self.username
+    
+    def get_full_name(self):
+        return self.nombres+" "+self.apellidos
+    
+    # def __str__(self):
+    #     return self.nombres+" "+self.apellidos

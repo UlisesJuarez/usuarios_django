@@ -31,7 +31,9 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 )
 
-LOCAL_APPS=()
+LOCAL_APPS=(
+    'applications.users',
+)
 
 THIRD_PARTY_APPS=()
 
@@ -82,6 +84,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+#para que el proyecto trabaje bajo otro modelo de usuario
+AUTH_USER_MODEL='users.User'
 
 
 LANGUAGE_CODE = 'en-us'
